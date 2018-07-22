@@ -1,0 +1,51 @@
+none                >Aucun<
+join_party          >Pour rejoindre une partie la syntaxe est `%%join nom de l'hote` (ou seulement `%%join` si il n'y a qu'une seule partie joignable dans le channel)<
+multiple_party      >Comme il y a plusieurs parties en attentes dans ce channel, vous devez spécifier l'hôte pour rejoindre une partie avec `%%join nom de l'hote`.<
+already_joined      >Vous êtes déjà dans la partie !<
+not_invited         >**{}**, vous ne pouvez pas rejoindre la partie de **{}** car vous n'êtes pas invité.<
+joined              >**{}** a rejoint la partie de {}<
+already_started     >La partie de **{}** est déjà en cours."<
+host_not_found      >Aucune partie hostée par **"{}"** n'a été trouvée.<
+waiting_game        >Parties en attente:```
+<
+game_list           >Liste des jeux : ```<
+game                >JEU<
+host                >HÔTE<
+players             >JOUEURS<
+options             >OPTIONS<
+devs                >DEVELOPPEURS<
+game_created        >Le jeu a été créé en mode <
+game_created_opts   >Le jeu a été créé avec les options: **<
+game_created_opt    >Le jeu a été créé avec l'option **{}** en mode <
+game_and            >{}** et **{}** <
+open_mode           >en mode libre, tout le monde peut <
+private_mode        >en mode invitation, les invités peuvent <
+type_join           >taper `%%join {}` pour rejoindre la partie.<
+not_a_game          >Le jeu **"{}"** n'existe pas, tapez .games pour avoir la liste des jeux.<
+only_one_party      >Impossible de créer une partie de {} car une partie est en cours ou vous avez déjà une partie en attente dans ce channel.<
+not_a_language      >Le langage **"{}"** n'existe pas. Va voir la liste des langages ISO sur wikipédia.<
+mainlang            >La langue principale de ce channel est le français, pour changer de langue écris `%%setlang langue`.<
+mainlang_success    >Le langage principal à bien été changé en **{}**.<
+addlang             >Ecrivez `%%addlang langage` pour ajouter une langue secondaire à ce channel.<
+addlang_success     >La langue **{}** à bien été ajoutée à ce channel.<
+rmlang              >Ecrivez `%%rmlang langage` pour retirer une langue de la liste des langages.<
+rmlang_success      >La langue **{}** à bien été retirée de ce channel.<
+lang                >Langue principale: **{}**  (utilise `%%mainlang lang` pour la changer)
+Langue secondaires: {}    (utilise `%%addlang lang` pour en ajouter une, `%%rmlang lang` pour en enlever une)<
+prefix              >Le préfixe des commandes sur ce serveur est `%%`, tape `%%prefix symbole` pour changer le préfixe.<
+prefix_success      >Le nouveau préfixe des commandes est `%%`.<
+wip                 >En cours de développement.<
+play                >Ecris `%%play jeu` pour jouer, écris `%%games` pour avoir la liste des jeux.<
+not_an_arg          >L'argument **"{}"** n'existe pas pour leu jeu **{}**.<
+bad_arg_value       >Erreur d'argument: **"{}"** n'est pas un **{}**<
+no_arg_found        >L'argument **"{}"** ne correspond à aucun argument du jeu **{}**.<
+no_common_lang      >Le jeu **{}** n'est disponible dans aucune langue de ce channel.
+Ecris `%%lang` pour voir la liste des langues du channel.<
+already_host        >**{}** tu es déjà l'hôte d'un lobby sur ce serveur, utilise `%%cancel` pour supprimer ton lobby.<
+not_a_host          >**{}** tu n'es l'hôte d'aucune partie sur ce serveur.<
+play_success_regular>**{}** ta partie de **{}** a été crée! La partie démarrera quand il y aura assez de joueurs.<
+play_success_flex   >**{}** ta parite de **{}** a été crée! Tu pourras utiliser `%%start` pour démarrer la partie quand il y aura assez de joueurs.<
+cancel_success      >**{}** ta partie à été annulée.<
+no_host             >Aucune partie hébergée par **{}** n'a été trouvé pour ce serveur.<
+no_valid_host       >Une partie hébergée **{}** a été trouvé, mais tu n'y es pas invité **{}**.<
+multiple_host       >Plusieurs parties hébergée par **{}** ont été trouvés pour ce serveur. Pour être sûr que j'identifie la bonne, utilise `%%join nom#tag`.<

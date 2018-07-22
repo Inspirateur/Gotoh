@@ -1,0 +1,52 @@
+none                >None<
+join_party          >To join a game, type `%%join host name` (or `%%join` if there's only one game in lobby)<
+multiple_party      >As there is multiple games in the lobby, you have to use `%%join host name`<
+already_joined      >You're already in the game !<
+not_invited         >**{}**, you can't join **"{}"**'s game because you're not invited.<
+joined              >**{}** joined {}'s game.<
+already_started     >**{}**'s game has already started."<
+host_not_found      >No game hosted by **"{}"** was found.<
+waiting_game        >Games waiting for players:```
+<
+game_list           >>.<' List of games : ```<
+game                >GAME<
+host                >HOST<
+players             >PLAYERS<
+options             >OPTIONS<
+devs                >DEVELOPPERS<
+game_created        >The game was created in <
+game_created_opts   >The game was created with options: **<
+game_created_opt    >The game was created with the option **"{}"** in <
+game_and            >{}** and **{}** <
+open_mode           >open mode, anybody can <
+private_mode        >private mode, the guests can <
+type_join           >type `%%join "{}"` to join the game.<
+not_a_game          >The game **"{}"** doesn't exist, types `%%games` to get a list of games.<
+only_one_party      >Can't create a game of "{}" because you already host a game in the lobby.<
+not_a_language      >The language **"{}"** does not exist. See the ISO langage list from wikipedia.<
+mainlang            >The main language on this channel is english, to change it type `%%mainlang language`.<
+mainlang_success    >The main language was succesfully changed to **{}**.<
+addlang             >Type `%%addlang language` to add a secondary language to this channel.<
+addlang_success     >The **{}** language has been succesfully added to this channel.<
+rmlang              >Type `%%rmlang language` to remove a language from this channel.<
+rmlang_success      >The **{}** language has been succesfully removed from this channel.<
+lang                >Main language: **{}**  (use `%%mainlang lang` to change it)
+Secondary languages: {}    (use `%%addlang lang` to add one, `%%rmlang lang` to remove one)<
+prefix              >The command prefix on this server is `%%`, type `%%prefix symbol` to change the prefix.<
+prefix_success      >The command prefix was succesfully changed to `%%`<
+wip                 >Work In Progress.<
+play                >Type `%%play game` to play a game, type `%%games` to get the gamelist.<
+not_an_arg          >The argument **"{}"** does not exist for the game **{}**.<
+bad_arg_value       >Wrong argument: **"{}"** is not a **{}**<
+no_arg_found        >The argument **"{}"** does not match any arguments of the game **{}**.<
+no_common_lang      >The game **{}** is not available in any language your channel allows.
+Type `%%lang` to get the list of langs for this channel.<
+already_host        >**{}** you're already the host of a lobby on this server, use `%%cancel` to disband your lobby.<
+not_a_host          >**{}** you are not hosting any lobby on this server.<
+play_success_regular>**{}** your game of **{}** was created! The game will start when enough players have join.<
+play_success_flex   >**{}** your game of **{}** was created! You can use `%%start` to start the game when there's enough players.<
+cancel_success      >**{}** your lobby was disbanded.<
+no_host             >No game hosted by **{}** was found for this server.<
+no_valid_host       >Game hosted by **{}** was found but you are not invited **{}**.<
+multiple_host       >Multiple game hosted by **{}** were found for this server. To make sure I identify the right one, use `%%join name#tag`.<
+join_succes         >
