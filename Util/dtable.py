@@ -54,10 +54,8 @@ class DTable:
 			maxlen[key] = len(value) + bonus_spacing
 		for line in lines:
 			for (key, value) in line.items():
-				print(value, ", len:", len(value))
 				if maxlen[key] < len(value) + bonus_spacing:
 					maxlen[key] = len(value) + bonus_spacing
-		print("maxlens:", str(maxlen))
 		# Build the discord message
 		msg = "```"
 		# Build the table header
@@ -74,7 +72,6 @@ class DTable:
 		# Fill the table
 		for line in lines:
 			for key in labels:
-				print(line[key], ", len:", len(line[key]))
 				msg += DTable.fit_str(line[key], maxlen[key]) + "║"
 			msg += "\n"
 		msg += "```"

@@ -9,6 +9,7 @@ from GameManagement.game_wrapper import GW
 from GameManagement.player import Player
 from LangManagement.lang_manager import Lang
 from Util.dlist import DList
+from GameManagement.player_cap import PC
 
 
 class GameCreationError(Exception):
@@ -60,11 +61,17 @@ class GM:
 	@staticmethod
 	def init():
 		gamedir = os.listdir(GM.games_path)
+		# Runs through every game folder
 		for file in gamedir:
 			filename = str(file)
 			try:
+				# Open the game folder <filename> meta file
 				with open(f"{GM.games_path}\{filename}\meta.txt") as mfile:
+					# Load the meta file into gamefiles[filename]
 					GM.gamefiles[filename] = yaml.load(mfile)
+					# Change "players" entry to a Player Cap class
+					GM.gamefiles[filename]["players"] = PC(str(GM.gamefiles[filename]["players"]))
+					# DeepCopy this entry into gamenames for every name/lang the game has
 					for gamename in GM.gamefiles[filename]["name"].values():
 						gamename = gamename.lower()
 						GM.gamenames[gamename] = copy.deepcopy(GM.gamefiles[filename])
@@ -161,7 +168,7 @@ class GM:
 
 	@staticmethod
 	def get_id_from_tag(tag):
-		return ''.join(filter(lambda x: x.isdigit(), tag))
+		return int(''.join(filter(lambda x: x.isdigit(), tag)))
 	# endregion
 
 	# region PUBLIC METHODS
@@ -197,21 +204,24 @@ class GM:
 				tags.append(GM.get_id_from_tag(arg))
 			else:
 				break
-		command = command[:-len(tags)]
+		if len(tags) > 0:
+			command = command[:-len(tags)]
 		# Get the guests from the command message
 		guests = []
 		for member in ctx.message.mentions:
 			# Check if it is a guest tag or an arg tag
 			if member.id in tags:
 				guests.append(Player(member.id, member.name, member.discriminator, member.display_name, member.avatar_url))
-
+		print("guests", guests)
 		# Extract tags if there is any
 		args_it = iter(command)
 		# Check if the game exists
-		gamename = next(args_it).lower().replace("_", " ")
-		if gamename not in GM.gamenames:
-			raise GameCreationError(Lang.get_text("not_a_game", ctx).format(command[0]))
-
+		try:
+			gamename = next(args_it).lower().replace("_", " ")
+			if gamename not in GM.gamenames:
+				raise GameCreationError(Lang.get_text("not_a_game", ctx).format(command[0]))
+		except StopIteration:
+			raise GameCreationError(Lang.get_text("play", ctx))
 		# Check if there is an appropriate language for the game and channel
 		langs = Lang.get_langs(ctx.message.channel.id)
 		game = GM.gamenames[gamename]
@@ -220,7 +230,6 @@ class GM:
 			raise GameCreationError(Lang.get_text("no_common_lang", ctx).format(gamename))
 		# Parse the args
 		args = GM.parse_args(args_it, gamename, ctx)
-		print(args)
 		# At this point args contains the user args and they're all correct (or an error was raised and caught in main)
 		handlerdata = game['handler'].split(".")
 		hfile = handlerdata[0]
@@ -231,7 +240,7 @@ class GM:
 			names = game["name"]
 		else:
 			names = {bestlang: game["name"][bestlang]}
-		wrapper = GW(args, str(game["players"]), hclass, names, guests)
+		wrapper = GW(args, game["players"], hclass, names, guests)
 		wrapper.add_player(ctx.message.author)
 		return wrapper
 	# endregion

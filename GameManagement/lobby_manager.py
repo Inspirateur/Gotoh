@@ -17,22 +17,40 @@ class LM:
 
 	#region PRIVATE METHOD
 	@staticmethod
-	def is_game_to_be_listed(handler, gamenames):
-		if len(gamenames) == 0:
+	def is_game_to_be_listed(handler, gamenames, player_id):
+		# Return True if the player is the host of said handler
+		if handler.players[0].id == player_id:
 			return True
+		# Checks if the player wants every game
+		if len(gamenames) == 0:
+			# Check if the player is invited in the game
+			if len(handler.guests) == 0:
+				return True
+			else:
+				for guest in handler.guests:
+					if guest.id == player_id:
+						return True
+				return False
 		else:
 			for gamename in gamenames:
 				gamename = gamename.lower().replace("_", " ")
 				for name in handler.names:
 					if name.lower() == gamename:
-						return True
+						# Check if the player is invited in the game
+						if len(handler.guests) == 0:
+							return True
+						else:
+							for guest in handler.guests:
+								if guest.id == player_id:
+									return True
+							return False
 			return False
 
 	@staticmethod
-	def scan_serv_for_lobbies(lobbylist, handlers, langs, gamenames):
+	def scan_serv_for_lobbies(lobbylist, handlers, langs, player_id, gamenames):
 		for handler in handlers:
 			# Checks if the game is in the list the user asked
-			if LM.is_game_to_be_listed(handler, gamenames):
+			if LM.is_game_to_be_listed(handler, gamenames, player_id):
 				# Scans the languages of the game
 				for lang in langs:
 					if lang in handler.names:
@@ -45,7 +63,7 @@ class LM:
 								argstr += f"{argname}={argval} "
 						party = {
 							"name": handler.names[lang],
-							"players": f"{len(handler.players)}/{handler.player_count}",
+							"players": f"{len(handler.players)}/{str(handler.player_cap)}",
 							"args": argstr,
 							"host": handler.players[0].get_name(),
 						}
@@ -82,14 +100,14 @@ class LM:
 	#endregion
 
 	@staticmethod
-	def lobby(server_id, langs, gamenames):
+	def lobby(player_id, server_id, langs, gamenames):
 		parties = []
 		# Scans the local games
 		if server_id in LM.waiting_handler_serv:
-			LM.scan_serv_for_lobbies(parties, LM.waiting_handler_serv[server_id], langs, gamenames)
+			LM.scan_serv_for_lobbies(parties, LM.waiting_handler_serv[server_id], langs, player_id, gamenames)
 
 		# Scans the online games
-		LM.scan_serv_for_lobbies(parties, LM.waiting_handler_serv[0], langs, gamenames)
+		LM.scan_serv_for_lobbies(parties, LM.waiting_handler_serv[0], langs, player_id, gamenames)
 		return parties
 
 	# RESTRICTION: A user cannot host more than 1 lobby on any server
@@ -151,6 +169,7 @@ class LM:
 		# Filter out the private lobby where player is not invited
 		validmatches = []
 		for handler in matches:
+			print(handler.guests)
 			if len(handler.guests) > 0:
 				for guest in handler.guests:
 					if player.id == guest.id:
@@ -171,7 +190,12 @@ class LM:
 
 		# At this point there is 1 valid handler, in validmatches[0]
 		validmatches[0].add_player(player)
+		return validmatches[0]
 
+	@staticmethod
+	def start(handler):
+		# TODO: CODE THE GAME START (bot action buffer, channel creation, role management ...)
+		pass
 
 # LISTE DES JEUX INTER SERVEUR
 # POSTULAT: AUCUN SERVEUR DISCORD N'A L'ID 0

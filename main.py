@@ -9,15 +9,16 @@ from LangManagement.prefix_manager import Prefix
 from Util.dlist import DList
 from Util.dtable import DTable
 
+Lang.init()
+Prefix.init()
+GM.init()
+DTable.init()
 
 async def get_pre(client, message):
 	return Prefix.get(message.guild.id)
 
 bot = commands.Bot(command_prefix=get_pre, description='play a game')
-Lang.init()
-Prefix.init()
-GM.init()
-DTable.init()
+
 
 # region EVENTS
 @bot.event
@@ -106,14 +107,12 @@ async def games(ctx):
 	msg = DTable.get_table(DTable.gamelistlabels[Lang.best_lang(Lang.gotoh_id, chan)], GM.get_list(Lang.get_langs(chan)))
 	await ctx.send(msg)
 
-
 @bot.command(aliases=["lobbies"], brief="List every parties waiting for players")
 async def lobby(ctx, *args):
 	chan = ctx.message.channel
-	lobbies = LM.lobby(chan.guild.id, Lang.get_langs(chan.id), args)
+	lobbies = LM.lobby(ctx.message.author.id, chan.guild.id, Lang.get_langs(chan.id), args)
 	msg = DTable.get_table(DTable.lobbylistlabels[Lang.best_lang(Lang.gotoh_id, chan.id)], lobbies)
 	await ctx.send(msg)
-
 
 @bot.command(pass_context=True, brief="Create a party")
 async def play(ctx, *args):
@@ -124,7 +123,7 @@ async def play(ctx, *args):
 			try:
 				handler = GM.get_handler(args, ctx)
 				LM.add_handler(handler, ctx.message.author.id, ctx.message.channel.guild.id, ctx)
-				if handler.player_count.isdigit():
+				if handler.player_cap.min == handler.player_cap.max:
 					# There is a fixed amount of players, the game will start automatically
 					await ctx.send(	Lang.get_text("play_success_regular", ctx)
 									.format(ctx.message.author.display_name, handler.get_name(Lang.get_langs(ctx.message.channel.id))))
@@ -137,7 +136,6 @@ async def play(ctx, *args):
 		except GameCreationError as err:
 			await ctx.send(err.message)
 
-
 @bot.command(pass_context=True, brief="Disband your party")
 async def cancel(ctx):
 	try:
@@ -148,8 +146,22 @@ async def cancel(ctx):
 
 @bot.command(pass_context=True, brief="Join a game by the host name")
 async def join(ctx, *args):
-	try:
+	if len(args) == 0:
+		await ctx.send(Lang.get_text("join", ctx))
+	else:
+		user_id = ' '.join(args)
+		try:
+			# Add the player to the right handler (if found)
+			handler = LM.add_player_to_lobby(ctx.message.author, user_id, ctx.message.channel.guild.id, ctx)
+			await ctx.send(Lang.get_text("join_succes", ctx).format(ctx.message.author.display_name, handler.players[0].name))
+			# Check if the handler is at full capacity
+			if handler.player_cap.is_max(len(handler.players)):
+				await ctx.send("THIS IS WERE I SHOULD START THE GAME")
+				LM.start(handler)
+		except LobbyError as err:
+			await ctx.send(err.message)
 
+#TODO: COMMAND OPEN TO LET OTHER SERVERS JOIN YOUR PARTY (need to be host of a waiting party)
 # endregion
 
 with open("token.txt", "r") as file:

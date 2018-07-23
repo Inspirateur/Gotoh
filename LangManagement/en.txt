@@ -1,26 +1,10 @@
 none                >None<
-join_party          >To join a game, type `%%join host name` (or `%%join` if there's only one game in lobby)<
-multiple_party      >As there is multiple games in the lobby, you have to use `%%join host name`<
 already_joined      >You're already in the game !<
-not_invited         >**{}**, you can't join **"{}"**'s game because you're not invited.<
-joined              >**{}** joined {}'s game.<
-already_started     >**{}**'s game has already started."<
-host_not_found      >No game hosted by **"{}"** was found.<
-waiting_game        >Games waiting for players:```
-<
-game_list           >>.<' List of games : ```<
-game                >GAME<
-host                >HOST<
-players             >PLAYERS<
+game                >GAMES<
 options             >OPTIONS<
 devs                >DEVELOPPERS<
-game_created        >The game was created in <
-game_created_opts   >The game was created with options: **<
-game_created_opt    >The game was created with the option **"{}"** in <
-game_and            >{}** and **{}** <
-open_mode           >open mode, anybody can <
-private_mode        >private mode, the guests can <
-type_join           >type `%%join "{}"` to join the game.<
+host                >HOST<
+players             >PLAYERS<
 not_a_game          >The game **"{}"** doesn't exist, types `%%games` to get a list of games.<
 only_one_party      >Can't create a game of "{}" because you already host a game in the lobby.<
 not_a_language      >The language **"{}"** does not exist. See the ISO langage list from wikipedia.<
@@ -49,4 +33,5 @@ cancel_success      >**{}** your lobby was disbanded.<
 no_host             >No game hosted by **{}** was found for this server.<
 no_valid_host       >Game hosted by **{}** was found but you are not invited **{}**.<
 multiple_host       >Multiple game hosted by **{}** were found for this server. To make sure I identify the right one, use `%%join name#tag`.<
-join_succes         >
+join_succes         >**{}** you have succesfully joined **{}**'s game!<
+join                >To join a game, type `%%join hostname`<

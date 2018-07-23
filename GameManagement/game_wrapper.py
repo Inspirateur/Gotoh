@@ -2,10 +2,10 @@ from GameManagement.player import Player
 
 
 class GW:
-	def __init__(self, args, player_count, gameclass, names, guests=None, online=False):
+	def __init__(self, args, player_cap, gameclass, names, guests=None, online=False):
 		self.args = args
 		self.players = []
-		self.player_count = player_count
+		self.player_cap = player_cap
 		self.gameclass = gameclass
 		self.guests = guests
 		self.names = names

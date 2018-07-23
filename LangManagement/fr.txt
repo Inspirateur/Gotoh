@@ -1,26 +1,10 @@
 none                >Aucun<
-join_party          >Pour rejoindre une partie la syntaxe est `%%join nom de l'hote` (ou seulement `%%join` si il n'y a qu'une seule partie joignable dans le channel)<
-multiple_party      >Comme il y a plusieurs parties en attentes dans ce channel, vous devez spécifier l'hôte pour rejoindre une partie avec `%%join nom de l'hote`.<
 already_joined      >Vous êtes déjà dans la partie !<
-not_invited         >**{}**, vous ne pouvez pas rejoindre la partie de **{}** car vous n'êtes pas invité.<
-joined              >**{}** a rejoint la partie de {}<
-already_started     >La partie de **{}** est déjà en cours."<
-host_not_found      >Aucune partie hostée par **"{}"** n'a été trouvée.<
-waiting_game        >Parties en attente:```
-<
-game_list           >Liste des jeux : ```<
-game                >JEU<
-host                >HÔTE<
-players             >JOUEURS<
+game                >JEUX<
 options             >OPTIONS<
 devs                >DEVELOPPEURS<
-game_created        >Le jeu a été créé en mode <
-game_created_opts   >Le jeu a été créé avec les options: **<
-game_created_opt    >Le jeu a été créé avec l'option **{}** en mode <
-game_and            >{}** et **{}** <
-open_mode           >en mode libre, tout le monde peut <
-private_mode        >en mode invitation, les invités peuvent <
-type_join           >taper `%%join {}` pour rejoindre la partie.<
+host                >HÔTE<
+players             >PLAYERS<
 not_a_game          >Le jeu **"{}"** n'existe pas, tapez .games pour avoir la liste des jeux.<
 only_one_party      >Impossible de créer une partie de {} car une partie est en cours ou vous avez déjà une partie en attente dans ce channel.<
 not_a_language      >Le langage **"{}"** n'existe pas. Va voir la liste des langages ISO sur wikipédia.<
@@ -49,3 +33,5 @@ cancel_success      >**{}** ta partie à été annulée.<
 no_host             >Aucune partie hébergée par **{}** n'a été trouvé pour ce serveur.<
 no_valid_host       >Une partie hébergée **{}** a été trouvé, mais tu n'y es pas invité **{}**.<
 multiple_host       >Plusieurs parties hébergée par **{}** ont été trouvés pour ce serveur. Pour être sûr que j'identifie la bonne, utilise `%%join nom#tag`.<
+join_succes         >**{}** tu as rejoins la partie de **{}** avec succès !<
+join                >Pour rejoindre une partie, écris `%%join nom_de_l'host`<
