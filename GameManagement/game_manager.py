@@ -59,6 +59,46 @@ class GM:
 
 	# region PRIVATE METHODS
 	@staticmethod
+	def load_args(game):
+		# Change the arguments from text to dicts
+		arglist = game["args"].split(" ")
+		argdict = OrderedDict()
+		# For every argument
+		for arg in arglist:
+			if len(arg) > 0:
+				# If it's a <value>
+				if arg.startswith("<"):
+					eqindex = arg.find("=", 1)
+					if eqindex != -1:
+						# it's <name=type>
+						name = arg[1:eqindex]
+						cat = arg[eqindex + 1:-1]
+					else:
+						# it's <type>
+						name = arg[1:-1]
+						cat = name
+					if cat in GM.arg_type:
+						# type is a native arg type
+						cat = (GM.arg_type[cat], cat)
+					else:
+						if cat.startswith("[") and cat.endswith("]"):
+							# it's <name=[valuelist]>
+							values = cat[1:-1].split(",")
+							valuelist = []
+							for value in values:
+								valuelist.append(value.strip())
+							cat = (lambda x: x in valuelist, cat)
+						else:
+							# it's <name=type> but type is not native
+							cat = (GM.is_any, arg[eqindex + 1:-1])
+				# If it's raw_text
+				else:
+					name = arg
+					cat = (True, arg)
+				argdict[name] = cat
+		game["args"] = argdict
+
+	@staticmethod
 	def init():
 		gamedir = os.listdir(GM.games_path)
 		# Runs through every game folder
@@ -78,43 +118,8 @@ class GM:
 						GM.gamenames[gamename]["folder"] = filename
 						# If the Game has arguments
 						if "args" in GM.gamenames[gamename]:
-							# Change the arguments from text to dicts
-							arglist = GM.gamenames[gamename]["args"].split(" ")
-							argdict = OrderedDict()
-							# For every argument
-							for arg in arglist:
-								if len(arg) > 0:
-									# If it's a <value>
-									if arg.startswith("<"):
-										eqindex = arg.find("=", 1)
-										if eqindex != -1:
-											# it's <name=type>
-											name = arg[1:eqindex]
-											cat = arg[eqindex + 1:-1]
-										else:
-											# it's <type>
-											name = arg[1:-1]
-											cat = name
-										if cat in GM.arg_type:
-											# type is a native arg type
-											cat = (GM.arg_type[cat], cat)
-										else:
-											if cat.startswith("[") and cat.endswith("]"):
-												# it's <name=[valuelist]>
-												values = cat[1:-1].split(",")
-												valuelist = []
-												for value in values:
-													valuelist.append(value.strip())
-												cat = (lambda x: x in valuelist, cat)
-											else:
-												# it's <name=type> but type is not native
-												cat = (GM.is_any, arg[eqindex + 1:-1])
-									# If it's raw_text
-									else:
-										name = arg
-										cat = (True, arg)
-									argdict[name] = cat
-							GM.gamenames[gamename]["args"] = argdict
+							# Parse the args from pure string to dict with check functions
+							GM.load_args(GM.gamenames[gamename])
 			except (OSError, yaml.YAMLError):
 				print(f"Could not load {filename}\meta.txt")
 

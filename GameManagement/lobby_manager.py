@@ -12,8 +12,6 @@ class LM:
 	waiting_handler_serv = {}
 	# {(user_id, server_id): handler}
 	waiting_handler_usr = {}
-	# {channel_id: handler}
-	ingame_handler = {}
 
 	#region PRIVATE METHOD
 	@staticmethod
@@ -193,9 +191,15 @@ class LM:
 		return validmatches[0]
 
 	@staticmethod
-	def start(handler):
-		# TODO: CODE THE GAME START (bot action buffer, channel creation, role management ...)
-		pass
+	def remove_waiting(handler, host_id, server_id):
+		# Remove the handler from waiting handler usr
+		if (host_id, server_id) in LM.waiting_handler_usr:
+			del LM.waiting_handler_usr[(host_id, server_id)]
+		elif (host_id, 0) in LM.waiting_handler_usr:
+			del LM.waiting_handler_usr[(host_id, 0)]
+		# Remove the handler from waiting handler serv
+		LM.waiting_handler_serv[server_id].remove(handler)
+
 
 # LISTE DES JEUX INTER SERVEUR
 # POSTULAT: AUCUN SERVEUR DISCORD N'A L'ID 0
