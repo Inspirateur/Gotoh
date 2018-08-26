@@ -11,8 +11,6 @@ Lang.init()
 Prefix.init()
 GM.init()
 DTable.init()
-# {channel_id : game handler}
-gamehandlers = {}
 #endregion
 
 async def get_pre(client, message):

@@ -12,7 +12,7 @@ class GW:
 		self.online = online
 
 	def start(self):
-		pass
+		handler = self.gameclass(self.args, self.players, self.names, self.online)
 
 	def get_name(self, chanlangs):
 		# Get the name in the best lang for the channel
@@ -23,8 +23,9 @@ class GW:
 		for name in self.names.values():
 			return name
 
-	def add_player(self, discord_member):
-		self.players.append(Player(discord_member.id, discord_member.name, discord_member.discriminator, discord_member.display_name, discord_member.avatar_url))
+	def add_player(self, ctx):
+		self.players.append(Player(ctx))
+
 
 	# ASSERT: discordname is in lower case
 	def matches_host_exact(self, discordname):

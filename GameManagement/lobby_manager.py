@@ -187,7 +187,7 @@ class LM:
 			raise LobbyError(Lang.get_text("multiple_host", ctx).format(user_id))
 
 		# At this point there is 1 valid handler, in validmatches[0]
-		validmatches[0].add_player(player)
+		validmatches[0].add_player(ctx)
 		return validmatches[0]
 
 	@staticmethod

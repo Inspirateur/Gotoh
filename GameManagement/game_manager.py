@@ -216,7 +216,7 @@ class GM:
 		for member in ctx.message.mentions:
 			# Check if it is a guest tag or an arg tag
 			if member.id in tags:
-				guests.append(Player(member.id, member.name, member.discriminator, member.display_name, member.avatar_url))
+				guests.append(Player(ctx))
 		print("guests", guests)
 		# Extract tags if there is any
 		args_it = iter(command)
@@ -246,6 +246,6 @@ class GM:
 		else:
 			names = {bestlang: game["name"][bestlang]}
 		wrapper = GW(args, game["players"], hclass, names, guests)
-		wrapper.add_player(ctx.message.author)
+		wrapper.add_player(ctx)
 		return wrapper
 	# endregion

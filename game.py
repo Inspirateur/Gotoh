@@ -9,6 +9,8 @@ from GameManagement.lobby_manager import LM, LobbyError
 class GameCog:
 	def __init__(self, bot):
 		self.bot = bot
+		# {channel_id : game handler}
+		gamehandlers = {}
 
 	@commands.command(aliases=["gamelist"], brief="List every playable games in this lobby")
 	async def games(self, ctx):
@@ -66,8 +68,12 @@ class GameCog:
 				# Check if the handler is at full capacity
 				if handler.player_cap.is_max(len(handler.players)):
 					await ctx.send("THIS IS WERE I SHOULD START THE GAME")
+					# Remove the handlers from the waiting handlers
 					LM.remove_waiting(handler, ctx.message.author.id, ctx.message.channel.guild.id)
-					# TODO: Start the game
+					# Give the bot instance to the game handler
+					handler.bot = self.bot
+					# Create the channels
+					await handler.channels()
 
 			except LobbyError as err:
 				await ctx.send(err.message)
