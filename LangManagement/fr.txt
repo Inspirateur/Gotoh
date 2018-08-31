@@ -35,3 +35,5 @@ no_valid_host       >Une partie hébergée **{}** a été trouvé, mais tu n'y e
 multiple_host       >Plusieurs parties hébergée par **{}** ont été trouvés pour ce serveur. Pour être sûr que j'identifie la bonne, utilise `%%join nom#tag`.<
 join_succes         >**{}** tu as rejoins la partie de **{}** avec succès !<
 join                >Pour rejoindre une partie, écris `%%join nom_de_l'host`<
+need_channel_perm   >J'ai besoin de la permission de gérer les channels pour créer des parties.<
+need_role_perm      >J'ai besoin de la permission de gérer les roles pour créer des parties.<

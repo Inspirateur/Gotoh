@@ -2,17 +2,18 @@ from GameManagement.player import Player
 
 
 class GW:
-	def __init__(self, args, player_cap, gameclass, names, guests=None, online=False):
+	def __init__(self, args, player_cap, gameclass, names, gamefolder, guests=None, online=False):
 		self.args = args
 		self.players = []
 		self.player_cap = player_cap
 		self.gameclass = gameclass
 		self.guests = guests
 		self.names = names
+		self.gamefolder = gamefolder
 		self.online = online
 
 	def start(self):
-		handler = self.gameclass(self.args, self.players, self.names, self.online)
+		return self.gameclass(self.args, self.players, self.names, self.gamefolder, self.online)
 
 	def get_name(self, chanlangs):
 		# Get the name in the best lang for the channel

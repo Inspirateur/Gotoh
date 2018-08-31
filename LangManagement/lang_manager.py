@@ -12,8 +12,8 @@ class Lang:
 	chans = {}
 	texts = {}
 	gotoh_id = "Gotoh"
+	home = os.getcwd()
 	cwd = os.getcwd() + "\LangManagement"
-
 	@staticmethod
 	def init():
 		# Initialize chans dict as {chan: [lang1, lang2...]}
@@ -30,6 +30,9 @@ class Lang:
 		# Load gotoh's lang files
 		Lang.load_text(Lang.gotoh_id, "fr")
 		Lang.load_text(Lang.gotoh_id, "en")
+		# Until github manager handles it, it's done manually
+		Lang.load_text("Tic-Tac-Toe", "fr")
+		Lang.load_text("Tic-Tac-Toe", "en")
 
 # --- CHANNEL LANGUAGES MANAGEMENT ---
 	@staticmethod
@@ -142,7 +145,7 @@ class Lang:
 		if game_id == Lang.gotoh_id:
 			path = Lang.cwd
 		else:
-			path = f"{Lang.cwd}\Games\{game_id}"
+			path = f"{Lang.home}\Games\{game_id}"
 
 		if lang is None:
 			# Load every lang file in the directory path
@@ -163,8 +166,8 @@ class Lang:
 			try:
 				with open(f"{path}\{lang}.txt", "r", encoding="utf-8") as file:
 					Lang.read_text_file(game_id, lang, file)
-			except OSError:
-				pass
+			except OSError as err:
+				print(err)
 
 	@staticmethod
 	def best_lang(game_id, chan):
@@ -196,4 +199,6 @@ class Lang:
 		if serv:
 			return Lang.texts[game_id][language][text_id].replace("%%", Prefix.get(serv))
 		else:
+			#print(Lang.texts[game_id])
+			#print(Lang.texts[game_id][language])
 			return Lang.texts[game_id][language][text_id]

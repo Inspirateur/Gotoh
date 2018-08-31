@@ -107,6 +107,7 @@ class GM:
 			try:
 				# Open the game folder <filename> meta file
 				with open(f"{GM.games_path}\{filename}\meta.txt") as mfile:
+					#TODO: At some point, add the entry "LangSensitive" to the meta file, true -> every player must play the game with the same lang
 					# Load the meta file into gamefiles[filename]
 					GM.gamefiles[filename] = yaml.load(mfile)
 					# Change "players" entry to a Player Cap class
@@ -234,7 +235,10 @@ class GM:
 		if bestlang is None:
 			raise GameCreationError(Lang.get_text("no_common_lang", ctx).format(gamename))
 		# Parse the args
-		args = GM.parse_args(args_it, gamename, ctx)
+		if "args" in GM.gamenames[gamename]:
+			args = GM.parse_args(args_it, gamename, ctx)
+		else:
+			args = None
 		# At this point args contains the user args and they're all correct (or an error was raised and caught in main)
 		handlerdata = game['handler'].split(".")
 		hfile = handlerdata[0]
@@ -245,7 +249,7 @@ class GM:
 			names = game["name"]
 		else:
 			names = {bestlang: game["name"][bestlang]}
-		wrapper = GW(args, game["players"], hclass, names, guests)
+		wrapper = GW(args, game["players"], hclass, names, game['folder'], guests)
 		wrapper.add_player(ctx)
 		return wrapper
 	# endregion

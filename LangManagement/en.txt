@@ -35,3 +35,5 @@ no_valid_host       >Game hosted by **{}** was found but you are not invited **{
 multiple_host       >Multiple game hosted by **{}** were found for this server. To make sure I identify the right one, use `%%join name#tag`.<
 join_succes         >**{}** you have succesfully joined **{}**'s game!<
 join                >To join a game, type `%%join hostname`<
+need_channel_perm   >I need the channel management permission to launch games.<
+need_role_perm      >I need the role management permission to launch games.<
